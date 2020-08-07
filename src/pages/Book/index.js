@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
-export default function Book() {
+export default function Book({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Inclua seu novo livro...</Text>
@@ -27,7 +27,10 @@ export default function Book() {
         <Text style={styles.saveButtonText}>Cadastrar</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.cancelButton}>
+      <TouchableOpacity 
+        style={styles.cancelButton}
+        onPress={() => {navigation.navigate('Main')}}
+      >
         <Text style={styles.cancelButtonText}>Cancelar</Text>
       </TouchableOpacity>
     </View>
