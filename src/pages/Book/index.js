@@ -9,6 +9,25 @@ export default function Book({navigation}) {
   const [description, setDescription] = useState();
   const [photo, setPhoto] = useState();
 
+  function isValid() {
+    if ((title !== undefined) && (title !== '')) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function onSave() {
+    console.log(`Title ${title}`);
+    console.log(`Description ${description}`);
+
+    if (isValid()) {
+      console.log('Valido!');
+    } else {
+      console.log('Invalido!')
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Inclua seu novo livro...</Text>
@@ -35,7 +54,10 @@ export default function Book({navigation}) {
         <Icon name="photo-camera" size={20} color="#fff" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity 
+        style={[styles.saveButton, (!isValid()) ? styles.saveButtonInvalid : '']}
+        onPress={onSave}
+      >
         <Text style={styles.saveButtonText}>Cadastrar</Text>
       </TouchableOpacity>
 

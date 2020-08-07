@@ -34,6 +34,9 @@ export default StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 20,
   },
+  saveButtonInvalid: {
+    opacity: 0.5,
+  },
   saveButtonText: {
     color: '#fff',
     fontSize: 16,
