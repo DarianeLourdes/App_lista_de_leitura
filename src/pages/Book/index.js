@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
@@ -17,16 +17,28 @@ export default function Book({navigation}) {
     return false;
   }
 
-  function onSave() {
+  async function onSave() {
     console.log(`Title ${title}`);
     console.log(`Description ${description}`);
 
     if (isValid()) {
       console.log('Valido!');
+
+      const id = 1;
+      const data = {
+        id,
+        title, 
+        description,
+        photo,
+      };
+
+      console.log(JSON.stringify(data));
+      await AsyncStorage.setItem('books', JSON.stringify(data));
+
     } else {
       console.log('Invalido!')
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
