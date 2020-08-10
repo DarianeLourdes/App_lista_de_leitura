@@ -35,6 +35,8 @@ export default function Book({navigation}) {
       console.log(JSON.stringify(data));
       await AsyncStorage.setItem('books', JSON.stringify(data));
 
+      navigation.navigate('Main');
+
     } else {
       console.log('Invalido!')
     }
