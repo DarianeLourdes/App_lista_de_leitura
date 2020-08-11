@@ -11,8 +11,7 @@ export default function Main({navigation}) {
     AsyncStorage.getItem('books').then(data => {
       const book = JSON.parse(data);
 
-      console.log("data", data)
-      setBooks([book]);
+      setBooks(book);
     });
     
   }, []);

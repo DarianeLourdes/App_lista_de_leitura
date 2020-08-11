@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
 export default function Book({navigation}) {
+  const [books, setBooks] = useState([])
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [photo, setPhoto] = useState();
+
+  useEffect(()  => {
+    AsyncStorage.getItem('books').then(data => {
+      const book = JSON.parse(data);
+
+      setBooks(book);
+    });
+    
+  }, []);
 
   function isValid() {
     if ((title !== undefined) && (title !== '')) {
@@ -24,7 +34,7 @@ export default function Book({navigation}) {
     if (isValid()) {
       console.log('Valido!');
 
-      const id = 1;
+      const id = Math.random(5000).toString();
       const data = {
         id,
         title, 
@@ -32,8 +42,10 @@ export default function Book({navigation}) {
         photo,
       };
 
+      books.push(data);
+
       console.log(JSON.stringify(data));
-      await AsyncStorage.setItem('books', JSON.stringify(data));
+      await AsyncStorage.setItem('books', JSON.stringify(books));
 
       navigation.navigate('Main');
 
