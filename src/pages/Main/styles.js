@@ -23,10 +23,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  itemsContainer: {
+    flexDirection: 'row',
+  },
   itemButton: {
-
+    flex: 1,
   },
   itemText: {
     fontSize: 16,
+  },
+  editButton: {
+
   },
 })

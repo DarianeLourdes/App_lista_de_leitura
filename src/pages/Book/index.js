@@ -4,19 +4,29 @@ import { View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-nat
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
-export default function Book({navigation}) {
-  const [books, setBooks] = useState([])
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
-  const [photo, setPhoto] = useState();
+export default function Book({ navigation }) {
+  const book = navigation.getParam("book", {
+    title: '',
+    description: '',
+    read: false,
+    photo: ''
+  });
 
-  useEffect(()  => {
+  const isEdit = navigation.getParam("isEdit", false);
+
+  const [books, setBooks] = useState([])
+  const [title, setTitle] = useState(book.title);
+  const [description, setDescription] = useState(book.description);
+  const [read, setRead] = useState(book.read);
+  const [photo, setPhoto] = useState(book.photo);
+
+  useEffect(() => {
     AsyncStorage.getItem('books').then(data => {
       const book = JSON.parse(data);
 
       setBooks(book);
     });
-    
+
   }, []);
 
   function isValid() {
@@ -28,27 +38,40 @@ export default function Book({navigation}) {
   }
 
   async function onSave() {
-    console.log(`Title ${title}`);
-    console.log(`Description ${description}`);
-
     if (isValid()) {
-      console.log('Valido!');
+      if (isEdit) {
 
-      const id = Math.random(5000).toString();
-      const data = {
-        id,
-        title, 
-        description,
-        photo,
-      };
+        let newBooks = books;
 
-      books.push(data);
+        newBooks.map(item => {
+          if(item.id === book.id) {
+            item.title = title;
+            item.description = description;
+            item.read = read;
+            item.photo = photo;
+          }
+          return item;
+        });
 
-      console.log(JSON.stringify(data));
-      await AsyncStorage.setItem('books', JSON.stringify(books));
+        console.log('books', books);
+        console.log('newBooks', newBooks);
+
+        await AsyncStorage.setItem('books', JSON.stringify(newBooks));
+      } else {
+        const id = Math.random(5000).toString();
+        const data = {
+          id,
+          title,
+          description,
+          photo,
+        };
+
+        books.push(data);
+        await AsyncStorage.setItem('books', JSON.stringify(books));
+      }
+
 
       navigation.navigate('Main');
-
     } else {
       console.log('Invalido!')
     }
@@ -57,7 +80,7 @@ export default function Book({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Inclua seu novo livro...</Text>
-      <TextInput 
+      <TextInput
         style={styles.input}
         placeholder="Titulo"
         value={title}
@@ -80,16 +103,16 @@ export default function Book({navigation}) {
         <Icon name="photo-camera" size={20} color="#fff" />
       </TouchableOpacity>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[styles.saveButton, (!isValid()) ? styles.saveButtonInvalid : '']}
         onPress={onSave}
       >
-        <Text style={styles.saveButtonText}>Cadastrar</Text>
+        <Text style={styles.saveButtonText}>{isEdit ? 'Atualizar' : 'Cadastrar'}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.cancelButton}
-        onPress={() => {navigation.navigate('Main')}}
+        onPress={() => { navigation.navigate('Main') }}
       >
         <Text style={styles.cancelButtonText}>Cancelar</Text>
       </TouchableOpacity>

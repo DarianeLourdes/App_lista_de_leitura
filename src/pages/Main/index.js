@@ -13,8 +13,16 @@ export default function Main({navigation}) {
 
       setBooks(book);
     });
-    
   }, []);
+
+  function onNewBook() {
+    navigation.navigate('Book')
+  }
+
+  function onBookEdit(bookId) {
+    const book = books.find(item => item.id === bookId)
+    navigation.navigate('Book', {book: book, isEdit: true});
+  };
 
 
   return (
@@ -23,7 +31,7 @@ export default function Main({navigation}) {
         <Text style={styles.title}>Lista de Leitura</Text>
         <TouchableOpacity 
           style={styles.addButton}
-          onPress={() => {navigation.navigate('Book')}}
+          onPress={onNewBook}
         >
           <Text>
             <Icon name="add" size={22} color="#fff" />
@@ -35,9 +43,18 @@ export default function Main({navigation}) {
         data={books}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.itemButton}>
-            <Text style={styles.itemText}>{item.title}</Text>
-          </TouchableOpacity>
+          <View style={styles.itemsContainer}>
+              <TouchableOpacity style={styles.itemButton}>
+              <Text style={styles.itemText}>{item.title}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.editButton}
+              onPress={() => onBookEdit(item.id)}
+            >
+              <Icon name="create" size={14} color="#2ecc71" />
+            </TouchableOpacity>
+          </View>
         )}
       />
     </View>
