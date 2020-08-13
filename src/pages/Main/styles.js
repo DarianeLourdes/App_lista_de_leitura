@@ -32,6 +32,10 @@ export default StyleSheet.create({
   itemText: {
     fontSize: 16,
   },
+  itemRead: {
+    textDecorationLine: 'line-through',
+    color: '#95a5a6',
+  },
   editButton: {},
   deleteButton: {},
 })

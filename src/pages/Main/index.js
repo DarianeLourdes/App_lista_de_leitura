@@ -27,7 +27,20 @@ export default function Main({navigation}) {
   async function onBookDelete(bookId) {
     const newBooks = books.filter(item => item.id !== bookId);
 
-    await AsyncStorage.setItem('books', newBooks);
+    await AsyncStorage.setItem('books', JSON.stringify(newBooks));
+    setBooks(newBooks);
+  };
+
+  async function onBookRead(bookId) {
+    const newBooks = books.map(item => {
+      if (item.id === bookId) {
+        item.read = !item.read;
+      }
+
+      return item;
+    });
+
+    await AsyncStorage.setItem('books', JSON.stringify(newBooks));
     setBooks(newBooks);
   };
 
@@ -51,8 +64,11 @@ export default function Main({navigation}) {
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <View style={styles.itemsContainer}>
-              <TouchableOpacity style={styles.itemButton}>
-              <Text style={styles.itemText}>{item.title}</Text>
+              <TouchableOpacity 
+                style={styles.itemButton}
+                onPress={() => onBookRead(item.id)}
+              >
+              <Text style={[styles.itemText, item.read ? styles.itemRead : '']}>{item.title}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
