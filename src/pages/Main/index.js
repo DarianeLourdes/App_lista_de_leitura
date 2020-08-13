@@ -24,6 +24,13 @@ export default function Main({navigation}) {
     navigation.navigate('Book', {book: book, isEdit: true});
   };
 
+  async function onBookDelete(bookId) {
+    const newBooks = books.filter(item => item.id !== bookId);
+
+    await AsyncStorage.setItem('books', newBooks);
+    setBooks(newBooks);
+  };
+
 
   return (
     <View style={styles.container}>
@@ -52,7 +59,14 @@ export default function Main({navigation}) {
               style={styles.editButton}
               onPress={() => onBookEdit(item.id)}
             >
-              <Icon name="create" size={14} color="#2ecc71" />
+              <Icon name="create" size={22} color="#2ecc71" />
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.deleteButton}
+              onPress={() => onBookDelete(item.id)}
+            >
+              <Icon name="delete" size={22} color="#e74c3c" />
             </TouchableOpacity>
           </View>
         )}

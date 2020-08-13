@@ -32,7 +32,6 @@ export default StyleSheet.create({
   itemText: {
     fontSize: 16,
   },
-  editButton: {
-
-  },
+  editButton: {},
+  deleteButton: {},
 })
