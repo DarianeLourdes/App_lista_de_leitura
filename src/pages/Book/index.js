@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, AsyncStorage, Modal } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import Photo from '../../components/Photo';
+import Camera from '../../components/Camera';
+
 import styles from './styles';
 
 export default function Book({ navigation }) {
@@ -19,6 +23,7 @@ export default function Book({ navigation }) {
   const [description, setDescription] = useState(book.description);
   const [read, setRead] = useState(book.read);
   const [photo, setPhoto] = useState(book.photo);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem('books').then(data => {
@@ -77,6 +82,10 @@ export default function Book({ navigation }) {
     }
   };
 
+  const onCloseModal = () => setIsModalVisible(false); 
+
+  const onChangePhoto = (newPhoto) => setPhoto(newPhoto);
+
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Inclua seu novo livro...</Text>
@@ -99,7 +108,12 @@ export default function Book({ navigation }) {
         }}
       />
 
-      <TouchableOpacity style={styles.cameraButton}>
+      <TouchableOpacity 
+        style={styles.cameraButton}
+        onPress={() => {
+          setIsModalVisible(true)
+        }}
+      >
         <Icon name="photo-camera" size={20} color="#fff" />
       </TouchableOpacity>
 
@@ -116,6 +130,24 @@ export default function Book({ navigation }) {
       >
         <Text style={styles.cancelButtonText}>Cancelar</Text>
       </TouchableOpacity>
+
+      <Modal
+        animationType='slide'
+        visible={isModalVisible}
+      >
+        {
+          photo ? (
+            <Photo 
+              photo={photo} 
+              onDeletePhoto={onChangePhoto}
+              onClosePicture={onCloseModal}
+            />
+          ) : (
+            <Camera onCloseCamera={onCloseModal} onTakePicture={onChangePhoto}/>
+          )
+        }
+
+      </Modal>
     </View>
   );
 }
