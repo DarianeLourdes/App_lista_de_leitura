@@ -9,7 +9,7 @@ import styles from './styles';
 export default function Camera({ onCloseCamera, onTakePicture }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(ExpoCamera.Constants.Type.back);
-  const [cameta, setCamera] = useState();
+  const [camera, setCamera] = useState();
 
   useEffect(() => {
     (async () => {
@@ -29,7 +29,7 @@ export default function Camera({ onCloseCamera, onTakePicture }) {
   const onTakePicturePress = async () => {
     try {
       const { uri } = await camera.takePictureAsync({
-        quality: 0.5
+        quality: 0.5,
       });
       onTakePicture(uri);
     } catch (error) {

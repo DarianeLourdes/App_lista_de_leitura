@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import Contants from 'expo-constants';
 
 export default StyleSheet.create({
   imagePreview: {
@@ -6,6 +7,7 @@ export default StyleSheet.create({
     height: '100%',
   },
   actionButtons: {
+    paddingTop: Contants.statusBarHeight,
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginRight: 5,
