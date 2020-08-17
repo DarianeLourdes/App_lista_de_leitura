@@ -54,7 +54,7 @@ export default function Main({navigation}) {
           onPress={onNewBook}
         >
           <Text>
-            <Icon name="add" size={22} color="#fff" />
+            <Icon name="add" size={30} color="#fff" />
           </Text>
         </TouchableOpacity>
       </View>
@@ -75,14 +75,14 @@ export default function Main({navigation}) {
               style={styles.editButton}
               onPress={() => onBookEdit(item.id)}
             >
-              <Icon name="create" size={22} color="#2ecc71" />
+              <Icon name="create" size={27} color="#2ecc71" />
             </TouchableOpacity>
 
             <TouchableOpacity 
               style={styles.deleteButton}
               onPress={() => onBookDelete(item.id)}
             >
-              <Icon name="delete" size={22} color="#e74c3c" />
+              <Icon name="delete" size={27} color="#e74c3c" />
             </TouchableOpacity>
           </View>
         )}
