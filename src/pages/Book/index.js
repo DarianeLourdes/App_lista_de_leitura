@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, AsyncStorage, Modal } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  AsyncStorage,
+  Modal,
+  Keyboard,
+  TouchableWithoutFeedback
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -49,7 +58,7 @@ export default function Book({ navigation }) {
         let newBooks = books;
 
         newBooks.map(item => {
-          if(item.id === book.id) {
+          if (item.id === book.id) {
             item.title = title;
             item.description = description;
             item.read = read;
@@ -82,72 +91,75 @@ export default function Book({ navigation }) {
     }
   };
 
-  const onCloseModal = () => setIsModalVisible(false); 
+  const onCloseModal = () => setIsModalVisible(false);
 
   const onChangePhoto = (newPhoto) => setPhoto(newPhoto);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.pageTitle}>Inclua seu novo livro...</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Titulo"
-        value={title}
-        onChangeText={(text) => {
-          setTitle(text)
-        }}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Descrição"
-        multiline={true}
-        numberOfLines={4}
-        value={description}
-        onChangeText={(text) => {
-          setDescription(text)
-        }}
-      />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.pageTitle}>Inclua seu novo livro...</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Titulo"
+          value={title}
+          onChangeText={(text) => {
+            setTitle(text)
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Descrição"
+          multiline={true}
+          numberOfLines={4}
+          value={description}
+          onChangeText={(text) => {
+            setDescription(text)
+          }}
+        />
 
-      <TouchableOpacity 
-        style={styles.cameraButton}
-        onPress={() => {
-          setIsModalVisible(true)
-        }}
-      >
-        <Icon name="photo-camera" size={20} color="#fff" />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cameraButton}
+          onPress={() => {
+            setIsModalVisible(true)
+          }}
+        >
+          <Icon name="photo-camera" size={35} color="#fff" />
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.saveButton, (!isValid()) ? styles.saveButtonInvalid : '']}
-        onPress={onSave}
-      >
-        <Text style={styles.saveButtonText}>{isEdit ? 'Atualizar' : 'Cadastrar'}</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.saveButton, (!isValid()) ? styles.saveButtonInvalid : '']}
+          onPress={onSave}
+        >
+          <Text style={styles.saveButtonText}>{isEdit ? 'Atualizar' : 'Cadastrar'}</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.cancelButton}
-        onPress={() => { navigation.navigate('Main') }}
-      >
-        <Text style={styles.cancelButtonText}>Cancelar</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cancelButton}
+          onPress={() => { navigation.navigate('Main') }}
+        >
+          <Text style={styles.cancelButtonText}>Cancelar</Text>
+        </TouchableOpacity>
 
-      <Modal
-        animationType='slide'
-        visible={isModalVisible}
-      >
-        {
-          photo ? (
-            <Photo 
-              photo={photo} 
-              onDeletePhoto={onChangePhoto}
-              onClosePicture={onCloseModal}
-            />
-          ) : (
-            <Camera onCloseCamera={onCloseModal} onTakePicture={onChangePhoto}/>
-          )
-        }
+        <Modal
+          animationType='slide'
+          visible={isModalVisible}
+        >
+          {
+            photo ? (
+              <Photo
+                photo={photo}
+                onDeletePhoto={onChangePhoto}
+                onClosePicture={onCloseModal}
+              />
+            ) : (
+                <Camera onCloseCamera={onCloseModal} onTakePicture={onChangePhoto} />
+              )
+          }
 
-      </Modal>
-    </View>
+        </Modal>
+      </View>
+    </TouchableWithoutFeedback>
+
   );
 }
