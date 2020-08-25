@@ -6,7 +6,8 @@ export default StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingTop: Constants.statusBarHeight + 20,
-    backgroundColor: '#fad390',
+    backgroundColor: '#dfe6e9',
+    
   },
   toolbox:{
     flexDirection: 'row',
@@ -16,8 +17,7 @@ export default StyleSheet.create({
     flex: 1,
     fontSize: 30,
     color: '#3498db',
-    fontWeight: 'bold',
-
+    fontFamily: 'Caveat_700Bold', 
   },
   addButton: {
     backgroundColor: '#3498db',
@@ -30,13 +30,15 @@ export default StyleSheet.create({
   itemsContainer: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: '#f6b93b',
+    borderBottomColor: '#b2bec3',
   },
   itemButton: {
     flex: 1,
   },
   itemText: {
     fontSize: 24,
+    fontFamily: 'Caveat_400Regular',
+
   },
   itemRead: {
     textDecorationLine: 'line-through',

@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: Constants.statusBarHeight + 20,
-    backgroundColor: '#fad390',
+    backgroundColor: '#dfe6e9',
   },
   pageTitle: {
     textAlign: 'center',
@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
   input: {
     fontSize: 16,
-    borderBottomColor: '#f6b93b',
+    borderBottomColor: '#fdcb6e',
     borderBottomWidth: 1,
     marginBottom: 40,
   },
