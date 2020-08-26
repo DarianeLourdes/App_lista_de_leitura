@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, AsyncStorage } from 'react-nati
 import { AppLoading } from 'expo';
 import { useFonts, Caveat_700Bold, Caveat_400Regular } from '@expo-google-fonts/caveat';
 
+import { Feather } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
@@ -64,7 +65,7 @@ export default function Main({ navigation }) {
             onPress={onNewBook}
           >
             <Text>
-              <Icon name="add" size={30} color="#fff" />
+              <Icon name="add" size={35} color="#fff" />
             </Text>
           </TouchableOpacity>
         </View>
@@ -85,14 +86,14 @@ export default function Main({ navigation }) {
                 style={styles.editButton}
                 onPress={() => onBookEdit(item.id)}
               >
-                <Icon name="create" size={27} color="#2ecc71" />
+                <Feather name="edit" size={25} color="#2ecc71" />
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.deleteButton}
                 onPress={() => onBookDelete(item.id)}
               >
-                <Icon name="delete" size={27} color="#e74c3c" />
+                <Feather name="trash" size={25} color="#e74c3c" />
               </TouchableOpacity>
             </View>
           )}

@@ -4,33 +4,31 @@ import Constants from 'expo-constants'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     paddingTop: Constants.statusBarHeight + 20,
-    backgroundColor: '#dfe6e9',
-    
+    backgroundColor: '#ecf0f1',
   },
   toolbox:{
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 30,
+    alignItems: 'center',
   },
   title: {
     flex: 1,
-    fontSize: 30,
+    fontSize: 40,
     color: '#3498db',
     fontFamily: 'Caveat_700Bold', 
   },
   addButton: {
     backgroundColor: '#3498db',
     borderRadius: 50,
-    width: 40,
-    height: 40,
+    width: 42,
+    height: 42,
     justifyContent: 'center',
     alignItems: 'center',
   },
   itemsContainer: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#b2bec3',
   },
   itemButton: {
     flex: 1,
