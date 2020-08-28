@@ -11,7 +11,6 @@ export default StyleSheet.create({
   toolbox:{
     flexDirection: 'row',
     marginBottom: 30,
-    alignItems: 'center',
   },
   title: {
     flex: 1,
